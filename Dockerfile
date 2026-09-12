@@ -7,6 +7,7 @@ FROM rust:1.89.0-slim AS builder
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
     cmake \
     libpq-dev \
     pkg-config \
