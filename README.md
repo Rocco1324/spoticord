@@ -4,6 +4,12 @@ Spoticord is a Discord music bot that allows you to control your music using the
 Spoticord is built on top of [librespot](https://github.com/librespot-org/librespot) (with tiny additional changes), to allow full control using the Spotify client, with [serenity](https://github.com/serenity-rs/serenity) and [songbird](https://github.com/serenity-rs/songbird) for Discord communication.
 Being built on top of rust, Spoticord is relatively lightweight and can run on low-spec hardware.
 
+## Discord voice compatibility
+
+Spoticord uses **Songbird 0.6.0**, which includes native support for Discord's **DAVE (Audio & Video End-to-End Encryption)** voice protocol.
+
+Songbird 0.6.0 also requires Rust 1.83.0 or newer. The repository and official Docker build are configured accordingly.
+
 ## How to use
 
 ### Official bot
@@ -34,6 +40,14 @@ Environment variables set this way take precedence over those in the `.env` file
 # Compiling
 
 For information about how to compile Spoticord from source, check out [COMPILING.md](COMPILING.md).
+
+For a normal release build:
+
+```bash
+cargo build --release
+```
+
+The Dockerfile uses the same release build and targets both `linux/amd64` and `linux/arm64`.
 
 # Contributing
 
