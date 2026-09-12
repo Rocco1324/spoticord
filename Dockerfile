@@ -8,6 +8,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake \
+    git \
     libpq-dev \
     pkg-config \
     ca-certificates \
@@ -17,8 +18,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY . .
 
+# Use the system git client for git dependencies. This avoids Cargo/libgit2
+# authentication failures when fetching the public Spoticord librespot fork.
+ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
+
 # Cargo may update the stale Cargo.lock from older dependency versions.
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/usr/local/cargo/git \
     --mount=type=cache,target=/app/target \
     cargo build --release
 
